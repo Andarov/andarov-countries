@@ -5,6 +5,13 @@ import search from '../assets/img/search.svg'
 
 const API = 'https://restcountries.com/v3.1/all';
 
+let options = {
+  style: 'decimal',
+  useGrouping: true,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+};
+
 const Home = () => { 
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +72,7 @@ const Home = () => {
                   <div className='pt-6 px-6 pb-11'>
                     <h3 className='font-bold text-lg text-textColor leading-[26px] mb-2'>{country.name.common}</h3>
                     <div className='space-y-2'>
-                      <p className='text-sm leading-4 text-textColor'><b>Population:</b> {country.population}</p>
+                      <p className='text-sm leading-4 text-textColor'><b>Population:</b> {country.population.toLocaleString('uz-Uz', options)}</p>
                       <p className='text-sm leading-4 text-textColor'><b>Region:</b> {country.region}</p>
                       <p className='text-sm leading-4 text-textColor'><b>Capital:</b> {country.capital ? country.capital : 'No capital'}</p>
                     </div>
