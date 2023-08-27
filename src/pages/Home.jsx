@@ -67,7 +67,7 @@ const Home = () => {
                     <div className='space-y-2'>
                       <p className='text-sm leading-4 text-textColor'><b>Population:</b> {country.population}</p>
                       <p className='text-sm leading-4 text-textColor'><b>Region:</b> {country.region}</p>
-                      <p className='text-sm leading-4 text-textColor'><b>Capital:</b> {country.capital}</p>
+                      <p className='text-sm leading-4 text-textColor'><b>Capital:</b> {country.capital ? country.capital : 'No capital'}</p>
                     </div>
                   </div>
                 </li>
