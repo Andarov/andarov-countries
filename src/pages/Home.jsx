@@ -60,8 +60,10 @@ const Home = () => {
 
         {/* API Data */}
         <div className='pt-12'>
-          { isError && <p>Xatolik</p> }
-          { isLoading && <p className='text-3xl text-center font-bold'>Loading...</p> }
+          {isError && <p className='text-red-500'>Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.</p>}
+
+          {isLoading && <p className='text-3xl text-center font-bold'>Yuklanmoqda...</p>}
+
 
           {/* Countries list */}
           <ul className='grid grid-cols-4 gap-x-[74px] gap-y-16'>
