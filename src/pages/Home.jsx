@@ -12,7 +12,15 @@ const Home = () => {
                 <img className='absolute top-5 left-8' src={search} alt="search icon" />
             </div>
 
-            
+            {/* Select */}
+            <select className='px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2'>
+                <option selected disabled>Filter by region</option>
+                <option value="africa">Africa</option>
+                <option value="america">America</option>
+                <option value="asia">Asia</option>
+                <option value="europe">Europe</option>
+                <option value="oceania">Oceania</option>
+            </select>
         </div>
     </div>
   )
