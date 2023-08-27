@@ -1,7 +1,35 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react'
 import search from '../assets/img/search.svg'
 
-const Home = () => {
+const API = 'https://restcountries.com/v3.1/all';
+
+const Home = () => { 
+  const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const fetchApi = async ()=>{
+    try{
+      setIsLoading(true);
+      const res = await fetch(API);
+      const data = await res.json();
+      setCountries(data);
+      setIsLoading(false)
+      setIsError(false)
+    }catch(error){
+      setIsLoading(false);
+      setIsError(true)
+    }
+  }
+
+  console.log(countries);
+
+  useEffect(()=>{
+    fetchApi();
+  }, [])
+
   return (
     <div className='w-full max-w-[1320px] px-5 mx-auto py-12'>
         {/* Input & Select */}
@@ -22,6 +50,33 @@ const Home = () => {
                 <option value="oceania">Oceania</option>
             </select>
         </div>
+
+        {/* API Data */}
+        <div className='pt-12'>
+          { isError && <p>Xatolik</p> }
+          { isLoading && <p className='text-3xl text-center font-bold'>Loading...</p> }
+
+          {/* Countries list */}
+          <ul className='grid grid-cols-4 gap-x-[74px] gap-y-16'>
+            { !isError && countries && countries.length > 0 && countries.map(country =>{
+              return(
+                <li className='shadow-listItem rounded-md'>
+                  <img className='h-40 w-full' src={country.flags.png} alt="" />
+                  <div className='pt-6 px-6 pb-11'>
+                    <h3 className='font-bold text-lg text-textColor leading-[26px] mb-2'>{country.name.common}</h3>
+                    <div className='space-y-2'>
+                      <p className='text-sm leading-4 text-textColor'><b>Population:</b> {country.population}</p>
+                      <p className='text-sm leading-4 text-textColor'><b>Region:</b> {country.region}</p>
+                      <p className='text-sm leading-4 text-textColor'><b>Capital:</b> {country.capital}</p>
+                    </div>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+
     </div>
   )
 }
