@@ -5,9 +5,9 @@ const Home = () => {
   return (
     <div className='w-full max-w-[1320px] px-5 mx-auto py-12'>
         {/* Input & Select */}
-        <div className="flex justify-between items-center">
-            {/* Input */}
-            <div className='relative w-full max-w-[480px]'>
+        <div className="flex flex-col items-end sm:flex-row sm:justify-between">
+             {/* Input */}
+            <div className='relative w-full max-w-[480px] mb-5 sm:mr-10 sm:mb-0'>
                 <input className='w-full py-[18px] pl-[74px] rounded-md shadow-input text-sm text-textColor' type="search" placeholder='Search for a country…' />
                 <img className='absolute top-5 left-8' src={search} alt="search icon" />
             </div>
