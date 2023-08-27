@@ -66,7 +66,7 @@ const Home = () => {
 
 
           {/* Countries list */}
-          <ul className='grid grid-cols-4 gap-x-[74px] gap-y-16'>
+          <ul className='grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-14 xl:grid-cols-4 xl:gap-x-[74px] xl:gap-y-16'>
             { !isError && countries && countries.length > 0 && countries.map(country =>{
               return(
                 <li className='shadow-listItem rounded-md'>
