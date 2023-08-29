@@ -1,6 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react'
+import { Link, useLoaderData } from 'react-router-dom';
 import search from '../assets/img/search.svg'
 
 const API = 'https://restcountries.com/v3.1/all';
@@ -13,29 +12,7 @@ let options = {
 };
 
 const Home = () => { 
-  const [countries, setCountries] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const fetchApi = async ()=>{
-    try{
-      setIsLoading(true);
-      const res = await fetch(API);
-      const data = await res.json();
-      setCountries(data);
-      setIsLoading(false)
-      setIsError(false)
-    }catch(error){
-      setIsLoading(false);
-      setIsError(true)
-    }
-  }
-
-  console.log(countries);
-
-  useEffect(()=>{
-    fetchApi();
-  }, [])
+  const countries = useLoaderData()
 
   return (
     <div className='w-full max-w-[1320px] px-5 mx-auto py-12'>
@@ -49,7 +26,7 @@ const Home = () => {
 
             {/* Select */}
             <select className='px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2'>
-                <option selected disabled>Filter by region</option>
+                <option value='' disabled>Filter by region</option>
                 <option value="africa">Africa</option>
                 <option value="america">America</option>
                 <option value="asia">Asia</option>
@@ -60,34 +37,38 @@ const Home = () => {
 
         {/* API Data */}
         <div className='pt-12'>
-          {isError && <p className='text-red-500'>Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.</p>}
-
-          {isLoading && <p className='text-3xl text-center font-bold'>Yuklanmoqda...</p>}
-
 
           {/* Countries list */}
           <ul className='grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-14 xl:grid-cols-4 xl:gap-x-[74px] xl:gap-y-16'>
-            { !isError && countries && countries.length > 0 && countries.map(country =>{
+            { countries && countries.length > 0 && countries.map(country =>{
               return(
-                <li className='shadow-listItem rounded-md'>
-                  <img className='h-40 w-full' src={country.flags.png} alt="" />
-                  <div className='pt-6 px-6 pb-11'>
-                    <h3 className='font-bold text-lg text-textColor leading-[26px] mb-2'>{country.name.common}</h3>
-                    <div className='space-y-2'>
-                      <p className='text-sm leading-4 text-textColor'><b>Population:</b> {country.population.toLocaleString('uz-Uz', options)}</p>
-                      <p className='text-sm leading-4 text-textColor'><b>Region:</b> {country.region}</p>
-                      <p className='text-sm leading-4 text-textColor'><b>Capital:</b> {country.capital ? country.capital : 'No capital'}</p>
-                    </div>
-                  </div>
+                <li key={country.name.common} className='shadow-listItem rounded-md'>
+                  <Link to={country.name.common}>
+                    <img className='w-full h-40' src={country.flags.png} alt={country.name.common + ' flag'} />
+                      <div className='pt-6 pb-11 px-6'>
+                        <h3 className='text-textColor text-lg leading-6 font-bold mb-4'>{country.name.common}</h3>
+                        <p><b>Population:</b> {country.population.toLocaleString('uz-Uz', options)}</p>
+                        <p><b>Region:</b> {country.region}</p>
+                        <p><b>Capital:</b> {country.capital ? country.capital : 'No capital'}</p>
+                      </div>
+                  </Link>
                 </li>
               )
             })}
           </ul>
         </div>
 
-
     </div>
   )
 }
 
 export default Home
+
+export const fetchApi = async()=>{
+  const res = await fetch(API);
+  const data = await res.json()
+  if(!res.ok){
+    throw Error('Davlatlarni olib bolmadi')
+  }
+  return data
+}
