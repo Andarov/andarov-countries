@@ -97,15 +97,18 @@ const Detail = () => {
               Border Countries:
             </p>
             <div className="flex flex-wrap">
-              {
-                country.borders > 0 ? Object.values(country.borders).map((border, index) => (
+              {country && country.borders && country.borders.length > 0 ? (
+                country.borders.map((border, index) => (
                   <span
                     className="py-1 px-7 m-1.5 border-[#979797] shadow-borderItem rounded-sm text-sm font-light text-textColor"
                     key={index}
                   >
                     {border}
                   </span>
-                )): <p>No border countries</p> }
+                ))
+              ) : (
+                <p>No border countries</p>
+              )}
             </div>
           </div>
         </div>
