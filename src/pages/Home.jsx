@@ -34,7 +34,7 @@ const Home = () => {
           </div>
 
           {/* Select */}
-          <select className="px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2 rounded-md dark:text-white dark:bg-lightDark">
+          <select className="px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2 rounded- bg-white dark:text-white dark:bg-lightDark">
             <option value="" disabled>
               Filter by region
             </option>
