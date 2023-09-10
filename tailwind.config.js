@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       boxShadow:{
@@ -13,7 +14,9 @@ export default {
         'borderItem': '0px 0px 4px 1px rgba(0, 0, 0, 0.10)',
       },
       colors:{
-        'textColor': '#111517' 
+        'textColor': '#111517',
+        'lightDark': '#2B3844',
+        'midDark': '#202C36'
       }
     },
   },
