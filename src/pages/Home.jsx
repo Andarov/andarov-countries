@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import search from "../assets/img/search.svg";
 
@@ -13,17 +13,36 @@ let options = {
 
 const Home = () => {
   const countries = useLoaderData();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filterCountriesBySearch = (country) => {
+    if (searchQuery.trim() === "") {
+      return true;
+    }
+
+    return country.name.common
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+  };
+
+  const filteredCountries = countries.filter(filterCountriesBySearch);
 
   return (
-    <div className="py-12 dark:bg-midDark">
+    <div className="py-12 min-h-screen dark:bg-midDark">
       <div className="w-full max-w-[1320px] px-5 mx-auto">
         {/* Input & Select */}
         <div className="flex flex-col items-end sm:flex-row sm:justify-between">
           {/* Input */}
           <div className="relative w-full max-w-[480px] mb-5 sm:mr-10 sm:mb-0">
             <input
-              className="w-full py-[18px] pl-[74px] rounded-md shadow-input text-sm text-textColor dark:bg-lightDark"
+              className="w-full py-[18px] pl-[74px] rounded-md shadow-input text-sm text-textColor dark:bg-lightDark dark:text-white"
               type="search"
+              value={searchQuery}
+              onChange={handleSearchChange}
               placeholder="Search for a country…"
             />
             <img
@@ -48,11 +67,14 @@ const Home = () => {
 
         {/* API Data */}
         <div className="pt-12">
+        {filteredCountries.length === 0 && (
+            <p className="text-textColor text-center font-medium text-base md:text-lg dark:text-white">No countries match your search query.</p>
+          )}
           {/* Countries list */}
           <ul className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-14 xl:grid-cols-4 xl:gap-x-[74px] xl:gap-y-16">
             {countries &&
               countries.length > 0 &&
-              countries.map((country) => {
+              countries.filter(filterCountriesBySearch).map((country) => {
                 return (
                   <li
                     key={country.name.common}
