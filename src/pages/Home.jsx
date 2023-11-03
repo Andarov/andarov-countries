@@ -88,7 +88,7 @@ const Home = () => {
                 return (
                   <li
                     key={country.name.common}
-                    className="shadow-listItem rounded-md dark:bg-lightDark dark:text-white"
+                    className="shadow-listItem bg-white rounded-md dark:bg-lightDark dark:text-white"
                   >
                     <Link to={country.name.common}>
                       <img

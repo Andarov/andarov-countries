@@ -5,7 +5,7 @@ const RootLayout = () => {
   return (
     <>
         <Header/>
-        <main>
+        <main className='bg-[#f4f4f4]'>
             <Outlet/>
         </main>
     </>
