@@ -13,23 +13,35 @@ let options = {
 
 const Home = () => {
   const countries = useLoaderData();
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [region, setRegion] = useState("");
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+  const handleRegionChange = (event) => {
+    setRegion(event.target.value);
   };
 
   const filterCountriesBySearch = (country) => {
     if (searchQuery.trim() === "") {
       return true;
     }
-
     return country.name.common
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
   };
 
+  const filterCountriesByRegion = (country) => {
+    if (region === "") {
+      return true;
+    }
+    return country.region === region;
+  };
+
   const filteredCountries = countries.filter(filterCountriesBySearch);
+  const filteredCountriesByRegion = filteredCountries.filter(filterCountriesByRegion);
 
   return (
     <div className="py-12 min-h-screen dark:bg-midDark">
@@ -53,15 +65,15 @@ const Home = () => {
           </div>
 
           {/* Select */}
-          <select className="px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2 rounded- bg-white dark:text-white dark:bg-lightDark">
-            <option value="" disabled>
+          <select defaultValue='DEFAULT' onChange={handleRegionChange} className="px-6 py-5 shadow-input w-52 text-sm text-textColor space-y-2 rounded- bg-white dark:text-white dark:bg-lightDark">
+            <option value="DEFAULT" disabled>
               Filter by region
             </option>
-            <option value="africa">Africa</option>
-            <option value="america">America</option>
-            <option value="asia">Asia</option>
-            <option value="europe">Europe</option>
-            <option value="oceania">Oceania</option>
+            <option value="Africa">Africa</option>
+            <option value="Americas">America</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="Oceania">Oceania</option>
           </select>
         </div>
 
@@ -72,9 +84,7 @@ const Home = () => {
           )}
           {/* Countries list */}
           <ul className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-14 xl:grid-cols-4 xl:gap-x-[74px] xl:gap-y-16">
-            {countries &&
-              countries.length > 0 &&
-              countries.filter(filterCountriesBySearch).map((country) => {
+            { filteredCountriesByRegion.map((country) => {
                 return (
                   <li
                     key={country.name.common}
