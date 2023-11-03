@@ -22,7 +22,7 @@ const Detail = () => {
         {/* back icon */}
         <div className="mb-10 md:mb-16 lg:mb-20">
           <Link
-            className="inline-flex items-center px-4 py-2.5 shadow-input rounded-md sm:px-8 dark:bg-lightDark"
+            className="inline-flex items-center bg-white px-4 py-2.5 shadow-input rounded-md sm:px-8 dark:bg-lightDark"
             to="/"
           >
             <img className="w-5 h-5 mr-2.5" src={backIcon} alt="" />
@@ -105,7 +105,7 @@ const Detail = () => {
                 {country && country.borders && country.borders.length > 0 ? (
                   country.borders.map((border, index) => (
                     <span
-                      className="py-1 px-7 m-1.5 border-[#979797] shadow-borderItem rounded-sm text-sm font-light text-textColor dark:bg-lightDark dark:text-white"
+                      className="py-1 px-7 m-1.5 border-[#979797] shadow-borderItem rounded-sm text-sm bg-white font-light text-textColor dark:bg-lightDark dark:text-white"
                       key={index}
                     >
                       {border}
