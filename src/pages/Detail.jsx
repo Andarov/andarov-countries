@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useLoaderData, useParams, Link } from "react-router-dom";
 import backIcon from "../assets/img/back-icon.svg";
 
@@ -13,8 +14,10 @@ const Detail = () => {
   const { name } = useParams();
   let country = useLoaderData();
   country = country[0];
-  console.log(country);
-  console.log(country.languages[0]);
+
+  useEffect(()=>{
+    document.title = 'Countries | Detail'
+  }, []);
 
   return (
     <div className="py-10 md:py-16 lg:py-20 dark:bg-midDark dark:text-white">

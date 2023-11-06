@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useRouteError } from "react-router-dom";
 import errorImg from "../assets/img/error.png";
 
 const Error = () => {
   const error = useRouteError();
+
+  useEffect(()=>{
+    document.title = 'Countries | Page not found'
+  }, [])
+
   return (
     <div className="py-20 min-h-screen dark:bg-midDark dark:text-white">
     <div className="w-full max-w-[1320px] px-5 mx-auto">
