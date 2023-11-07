@@ -6,7 +6,7 @@ const Error = () => {
   const error = useRouteError();
 
   useEffect(()=>{
-    document.title = 'Countries | Page not found'
+    document.title = 'Countries | Error'
   }, [])
 
   return (
